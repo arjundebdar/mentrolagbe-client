@@ -21,7 +21,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#06294d] text-white">
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-16 pb-12">
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 pt-16 pb-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand Information */}
           <div className="lg:col-span-1">
@@ -41,13 +41,9 @@ const Footer = () => {
 
             {/* Social Media */}
             <div className="flex items-center gap-3">
-              <SocialIcon url="https://www.facebook.com" size={15} />
-
-              <SocialIcon url="https://www.instagram.com" size={19} />
-
-              {/* New X Logo */}
-
-              <SocialIcon url="https://x.com" size={19} />
+              <SocialIcon url="https://www.facebook.com" />
+              <SocialIcon url="https://www.instagram.com" />
+              <SocialIcon url="https://x.com" />
             </div>
           </div>
 
@@ -106,13 +102,7 @@ const Footer = () => {
 
                 <div>
                   <p className="text-xs text-blue-200 mb-1">Email Address</p>
-
-                  <a
-                    href="mailto:contact@yourdomain.com"
-                    className="text-sm text-white hover:text-emerald-400 transition break-all"
-                  >
-                    contact@yourdomain.com
-                  </a>
+                  <p className="text-[16px] text-white mb-1">contact@mentorlagbe.com</p>
                 </div>
               </div>
 
@@ -124,13 +114,7 @@ const Footer = () => {
 
                 <div>
                   <p className="text-xs text-blue-200 mb-1">Phone Number</p>
-
-                  <a
-                    href="tel:+8801XXXXXXXXX"
-                    className="text-sm text-white hover:text-emerald-400 transition"
-                  >
-                    +880 1XXXXXXXXX
-                  </a>
+                  <p className="text-[16px] text-white mb-1">+880 1XXXXXXXXX</p>
                 </div>
               </div>
 
@@ -143,7 +127,7 @@ const Footer = () => {
                 <div>
                   <p className="text-xs text-blue-200 mb-1">Our Location</p>
 
-                  <p className="text-sm text-white">Dhaka, Bangladesh</p>
+                  <p className="text-[16px] text-white mb-1">Dhaka, Bangladesh</p>
                 </div>
               </div>
             </div>
@@ -153,7 +137,7 @@ const Footer = () => {
 
       {/* Bottom Footer */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-blue-200 text-sm text-center">
             © 2026 MentorLagbe. All rights reserved.
           </p>
