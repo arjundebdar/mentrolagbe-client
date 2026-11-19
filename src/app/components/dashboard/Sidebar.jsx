@@ -47,7 +47,7 @@ const Sidebar = () => {
         return <aside className="w-64 min-h-screen bg-[#101827]" />;
     }
 
-
+    const navItems = roleMenus[role] || [];
 
     return (
         <aside className="w-60 bg-[#101827] text-white flex flex-col justify-between min-h-screen p-4 shrink-0 border-r border-slate-800/70">
@@ -60,7 +60,7 @@ const Sidebar = () => {
                         {/* Profile Picture */}
                         <div className="w-12 h-12 rounded-2xl overflow-hidden bg-slate-700 shrink-0 ring-2 ring-emerald-500/40 ring-offset-2 ring-offset-[#101827]">
                             <img
-                                src={role.image || "/avatar-default.png"}
+                                src={session?.user?.image || "/avatar-default.png"}
                                 alt={session?.user?.name || "User"}
                                 className="w-full h-full object-cover "
                             />
@@ -82,11 +82,12 @@ const Sidebar = () => {
                     </div>
 
                     {/* Plan Information */}
-                    {roleMenus[role] !== "admin" && (
+                    {role !== "admin" && (
                         <div className="mt-4 px-3 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500/10 to-teal-500/5 border border-emerald-500/15 flex items-center justify-between">
                             <span className="text-xs text-slate-400">
                                 Current Plan
                             </span>
+
                             <span className="text-xs font-bold text-emerald-400 capitalize">
                                 {session?.user?.plan || "Free"}
                             </span>
@@ -103,7 +104,7 @@ const Sidebar = () => {
 
                 {/* Dynamic Navigation Links */}
                 <nav className="space-y-2">
-                    {roleMenus[role].map((item) => {
+                    {navItems.map((item) => {
                         const Icon = item.icon;
                         const isActive = pathname === item.href;
 
