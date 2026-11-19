@@ -1,8 +1,6 @@
 import React from 'react';
 import { Search, CalendarCheck, SquareCheckBig } from 'lucide-react';
 
-
-
 const steps = [
     {
         number: 1,
@@ -24,11 +22,47 @@ const steps = [
     },
 ];
 
-export default function HowItWorks() {
+const HowItWorks = () => {
     return (
-        <section className="w-full  mx-auto ">
+        <section className="w-full mx-auto" id="how-it-works">
+            {/* Continuous Sequential Animation Keyframes */}
+            <style>{`
+                @keyframes stepPulse1 {
+                    0%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+                    5%, 22% { transform: translateY(-4px) scale(1.03); opacity: 1; }
+                    30% { transform: translateY(0) scale(1); opacity: 0.7; }
+                }
+                @keyframes stepPulse2 {
+                    0%, 32% { transform: translateY(0) scale(1); opacity: 0.7; }
+                    38%, 55% { transform: translateY(-4px) scale(1.03); opacity: 1; }
+                    63%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+                }
+                @keyframes stepPulse3 {
+                    0%, 65% { transform: translateY(0) scale(1); opacity: 0.7; }
+                    72%, 92% { transform: translateY(-4px) scale(1.03); opacity: 1; }
+                    98%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+                }
+
+                @keyframes arrowFlow1 {
+                    0%, 15% { opacity: 0.25; transform: translateX(-8px); color: #b8e2cb; }
+                    22%, 34% { opacity: 1; transform: translateX(4px); color: #00994d; }
+                    42%, 100% { opacity: 0.25; transform: translateX(0); color: #b8e2cb; }
+                }
+                @keyframes arrowFlow2 {
+                    0%, 48% { opacity: 0.25; transform: translateX(-8px); color: #b8e2cb; }
+                    55%, 67% { opacity: 1; transform: translateX(4px); color: #00994d; }
+                    75%, 100% { opacity: 0.25; transform: translateX(0); color: #b8e2cb; }
+                }
+
+                .animate-step-1 { animation: stepPulse1 6s ease-in-out infinite; }
+                .animate-step-2 { animation: stepPulse2 6s ease-in-out infinite; }
+                .animate-step-3 { animation: stepPulse3 6s ease-in-out infinite; }
+                .animate-arrow-1 { animation: arrowFlow1 6s ease-in-out infinite; }
+                .animate-arrow-2 { animation: arrowFlow2 6s ease-in-out infinite; }
+            `}</style>
+
             {/* Main Soft Mint Container */}
-            <div className="relative bg-[#ecfbf2] px-5 py-5   p-8 md:p-12 overflow-hidden">
+            <div className="relative bg-[#ecfbf2] px-5 py-5 p-8 md:p-12 overflow-hidden">
 
                 {/* Top-Right Decorative Curved Arrow */}
                 <svg
@@ -66,8 +100,8 @@ export default function HowItWorks() {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4 max-w-4xl mx-auto">
                     {steps.map((step, index) => (
                         <React.Fragment key={step.number}>
-                            {/* Individual Step Block */}
-                            <div className="flex flex-col items-start">
+                            {/* Individual Step Block with Sequential Animation */}
+                            <div className={`flex flex-col items-start transition-all animate-step-${step.number}`}>
                                 {/* Top Row: Number Badge + Small Arrow + Icon Circle */}
                                 <div className="flex items-center gap-3 mb-3">
                                     {/* Green Number Badge */}
@@ -126,16 +160,16 @@ export default function HowItWorks() {
 
                             {/* Horizontal Connector Arrow Between Steps (Desktop Only) */}
                             {index < steps.length - 1 && (
-                                <div className="hidden md:flex items-center justify-center px-2">
+                                <div className={`hidden md:flex items-center justify-center px-2 animate-arrow-${index + 1}`}>
                                     <svg
-                                        className="w-12 h-4 text-[#b8e2cb]"
+                                        className="w-12 h-4"
                                         viewBox="0 0 50 16"
                                         fill="none"
                                     >
                                         <path
                                             d="M2 8H47M47 8L40 2M47 8L40 14"
                                             stroke="currentColor"
-                                            strokeWidth="1.5"
+                                            strokeWidth="2"
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
                                         />
@@ -149,3 +183,5 @@ export default function HowItWorks() {
         </section>
     );
 }
+
+export default HowItWorks;

@@ -47,7 +47,6 @@ export default function SignupPage() {
         email: email.trim(),
         password,
         role,
-        plan: "free",
         callbackURL: "/",
       });
 
@@ -117,11 +116,10 @@ export default function SignupPage() {
                 <button
                   type="button"
                   onClick={() => setRole("student")}
-                  className={`flex items-center justify-center gap-2 py-3 rounded-xl border font-semibold transition ${
-                    role === "student"
+                  className={`flex items-center justify-center gap-2 py-3 rounded-xl border font-semibold transition ${role === "student"
                       ? "border-emerald-500 bg-emerald-50 text-emerald-700"
                       : "border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100"
-                  }`}
+                    }`}
                 >
                   <Users size={18} />
                   Student
@@ -130,11 +128,10 @@ export default function SignupPage() {
                 <button
                   type="button"
                   onClick={() => setRole("tutor")}
-                  className={`flex items-center justify-center gap-2 py-3 rounded-xl border font-semibold transition ${
-                    role === "tutor"
+                  className={`flex items-center justify-center gap-2 py-3 rounded-xl border font-semibold transition ${role === "tutor"
                       ? "border-emerald-500 bg-emerald-50 text-emerald-700"
                       : "border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100"
-                  }`}
+                    }`}
                 >
                   <GraduationCap size={19} />
                   Tutor

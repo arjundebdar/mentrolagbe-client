@@ -6,14 +6,12 @@ const quickLinks = [
   { name: "Find Tutors", href: "/tutors" },
   { name: "Browse Tuitions", href: "/tuitions" },
   { name: "About Us", href: "/about" },
-  { name: "Contact Us", href: "/contact" },
 ];
 
 const supportLinks = [
   { name: "Sign In", href: "/signin" },
   { name: "Create Account", href: "/signup" },
   { name: "Become a Tutor", href: "/signup" },
-  { name: "Privacy Policy", href: "/privacy-policy" },
   { name: "Terms & Conditions", href: "/terms" },
 ];
 
