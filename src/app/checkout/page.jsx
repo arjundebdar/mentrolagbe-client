@@ -1,7 +1,21 @@
-
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 
-export default async function CheckoutPage({ searchParams }) {
+
+const CheckoutPage = ({ searchParams }) => {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center">
+                Loading checkout...
+            </div>
+        }>
+            <CheckoutContent searchParams={searchParams} />
+        </Suspense>
+    );
+}
+
+async function CheckoutContent({ searchParams }) {
+
     const params = await searchParams;
     const planId = params.plan;
 
@@ -67,3 +81,5 @@ export default async function CheckoutPage({ searchParams }) {
         </div>
     );
 }
+
+export default CheckoutPage;
