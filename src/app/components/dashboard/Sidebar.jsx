@@ -12,15 +12,17 @@ import {
     CheckCircle,
     Calendar,
     Settings,
-    UserRound
+    UserRound,
+    CreditCard
 } from "lucide-react";
 
 const roleMenus = {
     admin: [
-        { name: "Overview", href: "/admin", icon: LayoutDashboard },
-        { name: "Manage Users", href: "/admin/users", icon: Users },
-        { name: "All Tuitions", href: "/admin/tuitions", icon: BookOpen },
-        { name: "Settings", href: "/admin/settings", icon: Settings },
+        { name: "Overview", href: "/dashboard/admin", icon: LayoutDashboard },
+        { name: "Manage Users", href: "/dashboard/admin/users", icon: Users },
+        { name: "Tuitions", href: "/dashboard/admin/tuitions", icon: BookOpen },
+        { name: "Transaction", href: "/dashboard/admin/transaction", icon: CreditCard },
+        { name: "Settings", href: "/dashboard/admin/settings", icon: Settings },
     ],
     tutor: [
         { name: "Overview", href: "/dashboard/tutor", icon: LayoutDashboard },
