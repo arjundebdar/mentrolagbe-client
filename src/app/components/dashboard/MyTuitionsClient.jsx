@@ -91,7 +91,12 @@ const MyTuitionsClient = ({ initialTuitions }) => {
                 }
             );
 
-            const result = await res.json();
+            const text = await res.text();
+
+            console.log("Status:", res.status);
+            console.log("Response:", text);
+
+            const result = JSON.parse(text);
 
             if (!res.ok) {
                 throw new Error(
