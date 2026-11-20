@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { Check, Crown, Sparkles } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
 
 const plans = [
     {
@@ -21,7 +22,7 @@ const plans = [
     {
         id: "paid",
         name: "Paid Plan",
-        price: "499",
+        price: "15",
         description: "Grow your tutoring opportunities",
         features: [
             "Unlimited Active Tuition Posts",
@@ -37,11 +38,16 @@ const plans = [
 
 const PricingSection = () => {
     const router = useRouter();
+    const { data: session, isPending } = authClient.useSession();
 
-    // এখানে প্যারামিটার হিসেবে planId রিসিভ করা হচ্ছে
     const handleSubscribe = (planId) => {
+        if (isPending) return;
+        if (!session?.user) {
+            router.push("/sign-in");
+            return;
+        }
         if (planId === "free") {
-            router.push("/dashboard");
+            router.push(`/dashboard/${session.user.role}`);
         } else {
             router.push(`/checkout?plan=${planId}`);
         }
@@ -93,7 +99,7 @@ const PricingSection = () => {
 
                             <div className="flex items-baseline gap-2 mt-7 mb-7">
                                 <span className="text-4xl font-extrabold text-slate-900">
-                                    ৳{plan.price}
+                                    ${plan.price}
                                 </span>
                                 <span className="text-slate-500">/ month</span>
                             </div>
@@ -112,7 +118,7 @@ const PricingSection = () => {
                                 </ul>
                             </div>
 
-                            {/* এখানে plan.id পাঠানো হচ্ছে */}
+
                             <button
                                 onClick={() => handleSubscribe(plan.id)}
                                 className={`w-full mt-9 py-3 rounded-xl font-semibold

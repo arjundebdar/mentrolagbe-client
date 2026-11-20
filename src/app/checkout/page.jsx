@@ -1,85 +1,53 @@
-import { Suspense } from "react";
-import { redirect } from "next/navigation";
+import { CreditCard, ShieldCheck } from "lucide-react";
+import Link from "next/link";
 
-
-const CheckoutPage = ({ searchParams }) => {
+export default function CheckoutPage() {
     return (
-        <Suspense fallback={
-            <div className="min-h-screen flex items-center justify-center">
-                Loading checkout...
-            </div>
-        }>
-            <CheckoutContent searchParams={searchParams} />
-        </Suspense>
-    );
-}
-
-async function CheckoutContent({ searchParams }) {
-
-    const params = await searchParams;
-    const planId = params.plan;
-
-    // ১. প্ল্যান আইডি না থাকলে প্রাইসিং পেজে রিডাইরেক্ট করুন
-    if (!planId || planId !== "paid") {
-        redirect("/pricing");
-    }
-
-    // ২. এখানে সার্ভার সাইড থেকে ইউজারের তথ্য চেক করতে পারেন (যেমন: সেশন বা কুকি থেকে)
-    // const session = await auth();
-    // if (!session) redirect("/login");
-
-    const planDetails = {
-        name: "Paid Plan (MentorLagbe)",
-        price: 499,
-        currency: "BDT",
-    };
-
-    // ৩. পেমেন্ট ইনিশিয়েট করার ফাংশন (Server Action)
-    async function handlePaymentInitiate() {
-        "use server";
-
-        // এখানে পেমেন্ট গেটওয়ে (যেমন: SSLCommerz / bKash) API কল করতে হবে
-        // এবং গেটওয়ে থেকে প্রাপ্ত পেমেন্ট ইউরল (paymentUrl) রিটার্ন করতে হবে
-
-        // উদাহরণ স্বরূপ:
-        // const paymentUrl = await createSSLCommerzSession(planDetails);
-        // redirect(paymentUrl);
-    }
-
-    return (
-        <div className="min-h-screen bg-slate-50 py-16 px-4 flex items-center justify-center">
-            <div className="max-w-md w-full bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
-                <h1 className="text-2xl font-bold text-slate-900 mb-2">Checkout Summary</h1>
-                <p className="text-slate-500 mb-6">Review your order details before proceeding to payment.</p>
-
-                <div className="border-t border-b border-slate-200 py-4 mb-6 space-y-3">
-                    <div className="flex justify-between text-slate-700">
-                        <span>{planDetails.name}</span>
-                        <span className="font-semibold">${planDetails.price}</span>
-                    </div>
-                    <div className="flex justify-between text-slate-500 text-sm">
-                        <span>Billing Cycle</span>
-                        <span>Monthly</span>
-                    </div>
+        <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+            <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-sm">
+                <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                    <CreditCard size={30} className="text-green-600" />
                 </div>
 
-                <div className="flex justify-between items-center mb-8">
-                    <span className="font-bold text-slate-900">Total Payable</span>
-                    <span className="text-2xl font-extrabold text-emerald-600">${planDetails.price}</span>
+                <h1 className="text-2xl font-bold text-slate-800">
+                    Upgrade to Pro
+                </h1>
+
+                <p className="mt-3 text-sm leading-6 text-slate-500">
+                    Unlock premium features and enjoy more opportunities
+                    with MentorLagbe.
+                </p>
+
+                <div className="my-6 rounded-xl bg-slate-50 p-4">
+                    <h2 className="font-bold text-slate-800">
+                        Pro Tutor Plan
+                    </h2>
+                    <p className="mt-2 text-3xl font-bold text-green-600">
+                        $15
+                        <span className="text-sm font-normal text-slate-500">
+                            / month
+                        </span>
+                    </p>
+                    <p className="mt-2 text-xs text-slate-500">
+                        Unlimited tuition posts
+                    </p>
                 </div>
 
-                {/* Server Action দিয়ে পেমেন্ট শুরু করার ফর্ম */}
-                <form action={handlePaymentInitiate}>
-                    <button
-                        type="submit"
-                        className="w-full bg-emerald-600 text-white py-3 rounded-xl font-semibold hover:bg-emerald-700 transition-colors cursor-pointer"
-                    >
-                        Proceed to Payment $({planDetails.price})
-                    </button>
-                </form>
+                <button
+                    disabled
+                    className="w-full cursor-not-allowed rounded-xl bg-green-600 px-5 py-3 font-semibold text-white opacity-60"
+                >
+                    <ShieldCheck className="mr-2 inline" size={18} />
+                    Stripe Integration Pending
+                </button>
+
+                <Link
+                    href="/dashboard/tutor"
+                    className="mt-5 inline-block text-sm font-medium text-green-600 hover:underline"
+                >
+                    Back to Dashboard
+                </Link>
             </div>
         </div>
     );
 }
-
-export default CheckoutPage;

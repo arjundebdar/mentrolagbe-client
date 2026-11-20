@@ -12,7 +12,7 @@ import {
     CheckCircle,
     Calendar,
     Settings,
-    LogOut,
+    UserRound
 } from "lucide-react";
 
 const roleMenus = {
@@ -23,9 +23,11 @@ const roleMenus = {
         { name: "Settings", href: "/admin/settings", icon: Settings },
     ],
     tutor: [
-        { name: "Overview", href: "/tutor", icon: LayoutDashboard },
-        { name: "Applied Tuitions", href: "/tutor/applied", icon: CheckCircle },
-        { name: "Class Schedule", href: "/tutor/schedule", icon: Calendar },
+        { name: "Overview", href: "/dashboard/tutor", icon: LayoutDashboard },
+        { name: "Post a Tuition", href: "/dashboard/tutor/post-tuition", icon: PlusCircle },
+        { name: "My Tuitions", href: "/dashboard/tutor/my-tuitions", icon: BookOpen },
+        { name: "Applicants", href: "/dashboard/tutor/applicants", icon: Users },
+        { name: "Update Profile", href: "/dashboard/profile", icon: UserRound },
     ],
     student: [
         { name: "Overview", href: "/student", icon: LayoutDashboard },
