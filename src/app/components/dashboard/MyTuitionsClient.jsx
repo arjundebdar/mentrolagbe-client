@@ -83,17 +83,17 @@ const MyTuitionsClient = ({ initialTuitions }) => {
         try {
             setDeletingId(id);
 
-            const response = await fetch(
-                `${API_URL}/tuitions/${id}`,
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/tuitions/${id}`,
                 {
                     method: "DELETE",
                     credentials: "include",
                 }
             );
 
-            const result = await response.json();
+            const result = await res.json();
 
-            if (!response.ok) {
+            if (!res.ok) {
                 throw new Error(
                     result.message || "Failed to delete tuition"
                 );
