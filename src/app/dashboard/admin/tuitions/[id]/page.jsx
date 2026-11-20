@@ -1,7 +1,8 @@
-
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { revalidatePath } from "next/cache";
+export const instant = false;
+
 import {
     ArrowLeft,
     BookOpen,

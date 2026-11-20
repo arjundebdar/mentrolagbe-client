@@ -1,7 +1,7 @@
 
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
-
+export const instant = false;
 
 // Update user role
 async function updateUserRole(formData) {

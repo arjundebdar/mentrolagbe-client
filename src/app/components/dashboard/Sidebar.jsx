@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import { Suspense } from "react";
 
 import {
     LayoutDashboard,
@@ -38,7 +39,7 @@ const roleMenus = {
     ],
 };
 
-const Sidebar = () => {
+const SidebarContent = () => {
     const pathname = usePathname();
 
     // Logged-in user's session
@@ -143,6 +144,14 @@ const Sidebar = () => {
                 </nav>
             </div>
         </aside>
+    );
+};
+
+const Sidebar = () => {
+    return (
+        <Suspense fallback={<div>Loading sidebar...</div>}>
+            <SidebarContent />
+        </Suspense>
     );
 };
 
