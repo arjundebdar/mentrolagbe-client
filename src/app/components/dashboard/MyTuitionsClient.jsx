@@ -125,7 +125,7 @@ const MyTuitionsClient = ({ initialTuitions }) => {
             setUpdatingId(id);
 
             const response = await fetch(
-                `${API_URL}/tuitions/${id}/status`,
+                `${process.env.NEXT_PUBLIC_API_URL}/tuitions/${id}/status`,
                 {
                     method: "PATCH",
                     credentials: "include",
