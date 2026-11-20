@@ -1,6 +1,5 @@
 
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import {
     BookOpen,
@@ -32,12 +31,6 @@ async function updateTuition(formData) {
     const value = formData.get("value");
 
     try {
-        const cookieStore = await cookies();
-
-        const cookieHeader = cookieStore
-            .getAll()
-            .map(({ name, value }) => `${name}=${value}`)
-            .join("; ");
 
         let body = {};
 
@@ -121,20 +114,13 @@ const AdminTuitionsPage = async ({ searchParams }) => {
 
     // Fetch all tuitions from backend
     try {
-        const cookieStore = await cookies();
-
-        const cookieHeader = cookieStore
-            .getAll()
-            .map(({ name, value }) => `${name}=${value}`)
-            .join("; ");
 
         const response = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/admin/tuitions`,
             {
                 headers: {
-                    Cookie: cookieHeader,
+                    cache: "no-store",
                 },
-                cache: "no-store",
             }
         );
 

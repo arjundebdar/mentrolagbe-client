@@ -1,6 +1,5 @@
 
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import {
@@ -32,12 +31,6 @@ async function updateTuition(formData) {
     const actionType = formData.get("actionType");
     const value = formData.get("value");
 
-    const cookieStore = await cookies();
-
-    const cookieHeader = cookieStore
-        .getAll()
-        .map(({ name, value }) => `${name}=${value}`)
-        .join("; ");
 
     let body = {};
 
@@ -59,7 +52,6 @@ async function updateTuition(formData) {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                Cookie: cookieHeader,
             },
             body: JSON.stringify(body),
             cache: "no-store",
@@ -156,13 +148,6 @@ function StatusBadge({ status, active }) {
 export default async function TuitionDetailsPage({ params }) {
     const { id } = await params;
 
-    const cookieStore = await cookies();
-
-    const cookieHeader = cookieStore
-        .getAll()
-        .map(({ name, value }) => `${name}=${value}`)
-        .join("; ");
-
     let tuition;
 
     try {
@@ -170,9 +155,8 @@ export default async function TuitionDetailsPage({ params }) {
             `${process.env.NEXT_PUBLIC_API_URL}/tuitions/${id}`,
             {
                 headers: {
-                    Cookie: cookieHeader,
+                    cache: "no-store",
                 },
-                cache: "no-store",
             }
         );
 

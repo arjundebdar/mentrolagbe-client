@@ -12,7 +12,6 @@ import {
     ShieldCheck,
     AlertCircle,
 } from "lucide-react";
-import { cookies } from "next/headers";
 
 const statCards = [
     {
@@ -99,22 +98,14 @@ const AdminOverview = async () => {
     let error = "";
 
     try {
-        // Get cookies from the incoming request
-        const cookieStore = await cookies();
-
-        const cookieHeader = cookieStore
-            .getAll()
-            .map(({ name, value }) => `${name}=${value}`)
-            .join("; ");
 
         // Fetch admin overview data
         const response = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/admin-overview`,
             {
                 headers: {
-                    Cookie: cookieHeader,
+                    cache: "no-store",
                 },
-                cache: "no-store",
             }
         );
 
