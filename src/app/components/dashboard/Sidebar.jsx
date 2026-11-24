@@ -33,9 +33,9 @@ const roleMenus = {
         { name: "Update Profile", href: "/dashboard/profile", icon: UserRound },
     ],
     student: [
-        { name: "Overview", href: "/student", icon: LayoutDashboard },
-        { name: "Post a Tuition", href: "/student/post-tuition", icon: PlusCircle },
-        { name: "My Tutors", href: "/student/my-tutors", icon: Users },
+        { name: "Overview", href: "/dashboard/student", icon: LayoutDashboard },
+        { name: "Browse Tutions", href: "/dashboard/student/browse-tutions", icon: PlusCircle },
+        { name: "Applications", href: "/dashboard/student/my-applications", icon: Users },
     ],
 };
 

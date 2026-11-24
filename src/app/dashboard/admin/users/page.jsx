@@ -1,8 +1,7 @@
 
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
-export const instant = false;
-
+import { Suspense } from "react";
 // Update user role
 async function updateUserRole(formData) {
     "use server";
@@ -22,11 +21,19 @@ async function updateUserRole(formData) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ role }),
+            cache: "no-store",
         }
     );
 
+    const result = await response.text();
+
+    console.log("Role Update Status:", response.status);
+    console.log("Role Update Response:", result);
+
     if (!response.ok) {
-        throw new Error("Failed to update user role");
+        throw new Error(
+            `Failed to update user role: ${response.status} - ${result}`
+        );
     }
 
     revalidatePath("/dashboard/admin/users");
@@ -61,7 +68,7 @@ async function updateUserStatus(formData) {
     revalidatePath("/dashboard/admin/users");
 }
 
-export default async function ManageUsersPage({ searchParams }) {
+const ManageUsersPage = async ({ searchParams }) => {
     const params = await searchParams;
     const selectedRole = params?.role || "all";
     const search = params?.q || "";
@@ -71,7 +78,7 @@ export default async function ManageUsersPage({ searchParams }) {
 
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URLAPI_URL}/users`,
+            `${process.env.NEXT_PUBLIC_API_URL}/users`,
             {
                 cache: "no-store",
             }
@@ -414,3 +421,14 @@ export default async function ManageUsersPage({ searchParams }) {
         </div>
     );
 }
+
+
+const page = ({ searchParams }) => {
+    return (
+        <Suspense fallback={<div>Loading sidebar...</div>}>
+            <ManageUsersPage searchParams={searchParams} />
+        </Suspense>
+    );
+};
+
+export default page;

@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+
 import {
     BookOpen,
     Users,
@@ -66,8 +69,76 @@ const quickActions = [
     },
 ];
 
-const TutorOverviewPage = () => {
+const TutorOverviewPage = async () => {
     const currentPlan = "Free";
+    // Get logged-in tutor session
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
+    const email = session?.user?.email;
+
+    // Default statistics
+    let dashboardStats = {
+        totalTuitions: 0,
+        approvedTuitions: 0,
+        totalApplicants: 0,
+        pendingTuitions: 0,
+    };
+
+    // Fetch statistics from Express backend
+    if (email) {
+        try {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/tutor-stats?email=${encodeURIComponent(email)}`,
+                {
+                    cache: "no-store",
+                }
+            );
+
+            if (response.ok) {
+                const result = await response.json();
+
+                if (result.success) {
+                    dashboardStats = result.stats;
+                }
+            }
+        } catch (error) {
+            console.error("Failed to fetch tutor statistics:", error);
+        }
+    }
+
+    // Statistics
+    const stats = [
+        {
+            title: "Total Tuitions",
+            value: dashboardStats.totalTuitions,
+            description: "Total tuition posts created",
+            icon: BookOpen,
+            color: "bg-blue-50 text-blue-600",
+        },
+        {
+            title: "Approved Tuitions",
+            value: dashboardStats.approvedTuitions,
+            description: "Approved and active listings",
+            icon: CheckCircle,
+            color: "bg-green-50 text-green-600",
+        },
+        {
+            title: "Total Applicants",
+            value: dashboardStats.totalApplicants,
+            description: "Students applied to your tuitions",
+            icon: Users,
+            color: "bg-purple-50 text-purple-600",
+        },
+        {
+            title: "Pending Tuitions",
+            value: dashboardStats.pendingTuitions,
+            description: "Waiting for admin approval",
+            icon: Clock,
+            color: "bg-orange-50 text-orange-600",
+        },
+    ];
 
     return (
         <div className="min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8">
